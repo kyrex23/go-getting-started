@@ -1,0 +1,113 @@
+swagger: "2.0"
+info:
+  title: Marvel API
+  description: API about the Marvel Cinematic Universe (MCU)
+  version: 1.0.0
+
+basePath: /v1
+
+paths:
+  /heroes:
+    get:
+      summary: Get the list of heroes
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: List of heroes retrieved successfully
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Hero"
+    post:
+      summary: Create a new hero
+      consumes:
+        - application/json
+      parameters:
+        - name: NewHeroRequest
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Hero"
+      produces:
+        - application/json
+      responses:
+        "201":
+          description: Hero created successfully
+          schema:
+            $ref: "#/definitions/Hero"
+  /heroes/{id}:
+    get:
+      summary: Get a hero by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Hero found successfully
+          schema:
+            $ref: "#/definitions/Hero"
+        "404":
+          description: Hero not found
+    put:
+      summary: Update a hero by ID
+      consumes:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+        - name: UpdateHeroRequest
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/UpdateHeroRequest"
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Hero updated successfully
+          schema:
+            $ref: "#/definitions/Hero"
+        "404":
+          description: Hero not found
+    delete:
+      summary: Delete a hero by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        "204":
+          description: Hero removed successfully
+        "404":
+          description: Hero not found
+
+definitions:
+  Hero:
+    type: object
+    properties:
+      id:
+        type: integer
+        example: 1
+      name:
+        type: string
+        example: "Iron Man"
+      actual_name:
+        type: string
+        example: "Tony Stark"
+  UpdateHeroRequest:
+    type: object
+    properties:
+      name:
+        type: string
+        example: "Iron Man"
+      actual_name:
+        type: string
+        example: "Tony Stark"
