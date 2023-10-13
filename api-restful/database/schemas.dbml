@@ -1,0 +1,10 @@
+Project "Marvel" {
+	database_type: 'PostgreSQL'
+	Note: 'Database of Marvel Cinematic Universe (MCU)'
+}
+
+Table "heroes" {
+	id integer [pk]
+	name varchar [not null]
+	actual_name varchar [not null]
+}

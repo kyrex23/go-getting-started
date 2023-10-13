@@ -1,0 +1,66 @@
+version: "3"
+
+vars:
+  MIGRATIONS_DIR: "./database/migrations"
+  DSN: "{{.DB_CONNECTION}}://{{.DB_USERNAME}}:{{.DB_PASSWORD}}@{{.DB_HOST}}:{{.DB_PORT}}/{{.DB_DATABASE}}?sslmode=disable"
+
+dotenv:
+  - ".env"
+
+tasks:
+  exec:install:
+    desc: "Install dependencies required to run the project"
+    cmds:
+      - go install github.com/go-task/task/v3/cmd/task@latest
+      - go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+
+  all:restart:
+    desc: "Restart the services containers and creates the database and tables"
+    cmds:
+      - task: service:down
+      - task: service:up
+      - task: db:drop
+      - task: db:create
+      - task: db:init
+
+  # Tasks regarding to the services
+  service:up:
+    desc: "Starts services containers"
+    cmd: docker-compose up -d
+
+  service:down:
+    desc: "Stops services and removes containers"
+    cmd: docker-compose down
+
+  # Tasks regarding to the database
+  db:create:
+    desc: "Creates the database schema"
+    cmd: docker exec -it postgres sh -c "psql -U {{.DB_USERNAME}} -c 'CREATE DATABASE {{.DB_DATABASE}};'"
+    requires:
+      vars:
+        - DB_USERNAME
+        - DB_DATABASE
+
+  db:drop:
+    desc: "Drops the database schema"
+    cmd: docker exec -it postgres sh -c "psql -U {{.DB_USERNAME}} -c 'DROP DATABASE {{.DB_DATABASE}};'"
+    requires:
+      vars:
+        - DB_USERNAME
+        - DB_DATABASE
+
+  db:init:
+    desc: "Runs the database init scripts"
+    cmds:
+      - migrate -path {{.MIGRATIONS_DIR}} -database {{.DSN}} -verbose up {{.CLI_ARGS}}
+      - docker exec -it postgres sh -c 'psql -U {{.DB_USERNAME}} -d {{.DB_DATABASE}} < /sample_data/heroes.sql'
+    requires:
+      vars:
+        - DSN
+
+  db:clean:
+    desc: "Runs the database down scripts"
+    cmd: migrate -path {{.MIGRATIONS_DIR}} -database {{.DSN}} -verbose down {{.CLI_ARGS}}
+    requires:
+      vars:
+        - DSN
