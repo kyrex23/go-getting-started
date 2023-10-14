@@ -11,8 +11,10 @@ tasks:
   exec:install:
     desc: "Install dependencies required to run the project"
     cmds:
+      # This first executable must be installed manually due to it is the tool used to execute these tasks
       - go install github.com/go-task/task/v3/cmd/task@latest
       - go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+      - go install github.com/swaggo/swag/cmd/swag@latest
 
   all:restart:
     desc: "Restart the services containers and creates the database and tables"
@@ -64,3 +66,9 @@ tasks:
     requires:
       vars:
         - DSN
+
+  swagger:generate:
+    desc: Generate swagger documentation
+    cmds:
+      - swag fmt
+      - swag init -g ./cmd/api-restful/main.go -o ./docs --parseInternal true
