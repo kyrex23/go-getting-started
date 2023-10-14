@@ -7,6 +7,8 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 // Router is a wrapper for HTTP router
@@ -27,9 +29,9 @@ func NewRouter(heroHandler HeroHandler) (*Router, error) {
 	router.Use(gin.LoggerWithFormatter(customLogger), gin.Recovery())
 
 	// Swagger
-	//router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	router.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
-	v1 := router.Group("/v1")
+	v1 := router.Group("/api/v1")
 	{
 		hero := v1.Group("/heroes")
 		{

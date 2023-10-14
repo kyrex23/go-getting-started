@@ -8,9 +8,20 @@ import (
 	"log/slog"
 	"os"
 
+	_ "getting-started/api-restful/docs"
+
 	"github.com/joho/godotenv"
 )
 
+//	@title			Marvel API
+//	@description	API about the Marvel Cinematic Universe (MCU)
+//	@version		1.0.0
+//
+//	@contact.name	Kyrex
+//	@contact.url	github.com/kyrex23
+//
+//	@host			localhost:8080
+//	@basePath		/api/v1
 func main() {
 	if err := godotenv.Load(".env"); err != nil {
 		slog.Error("Error ocurred loading env file", "error", err)
