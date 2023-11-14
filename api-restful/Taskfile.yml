@@ -8,8 +8,8 @@ dotenv:
   - ".env"
 
 tasks:
-  exec:install:
-    desc: "Install dependencies required to run the project"
+  setup:
+    desc: "Install dependencies required to run/build the project"
     cmds:
       # This first executable must be installed manually due to it is the tool used to execute these tasks
       - go install github.com/go-task/task/v3/cmd/task@latest
@@ -67,6 +67,7 @@ tasks:
       vars:
         - DSN
 
+  # Tasks regarding to the documentation
   swagger:generate:
     desc: Generate swagger documentation
     cmds:
