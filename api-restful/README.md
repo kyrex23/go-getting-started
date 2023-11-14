@@ -16,7 +16,7 @@ Before you begin, make sure you have the following software installed on your sy
 ## Usage of `task` command
 
 This project contains a file `Taskfile.yml` which contains a group os tasks you can execute with `task` command:
-- `task exec:install` -> Installs all the required tools to deploy and run the project
+- `task setup` -> Installs all the required tools to deploy and run the project
 - `task all:restart` -> Restarts the PostgreSQL container and recreates the database schema and tables
 - `task service:up` -> Starts the PostgreSQL database using docker
 - `task service:down` -> Stops the PostgreSQL database and removes its container
