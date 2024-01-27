@@ -3,6 +3,8 @@ go 1.21.2
 use (
 	./hello-world
 
+	./import-external-packages
+
 	./create-modules/use-external-module/hello
 	./create-modules/handle-error/hello
 	./create-modules/slices/hello
