@@ -17,7 +17,12 @@ programming language.
 
 ## Introduction
 
-Oops, I forgot it... 😅
+Go, also known as Golang, is a statically typed, compiled language designed for simplicity and efficiency.
+
+It has gained popularity for its clean syntax, strong standard library, and excellent performance.
+
+Whether you're a complete beginner or an experienced programmer looking to learn Go, this repository is a great place
+to start.
 
 ### Usage of workspaces to manage a multi-module repository
 
@@ -41,6 +46,24 @@ You can then execute a module with the following command:
 ```bash
 go run ./hello-world
 ```
+
+
+## Official Tutorials
+
+> Note: this tutorials are obtained from the [official website](https://go.dev/doc/)
+
+Here's a list of tutorials available in this repository to help you kickstart your journey with Go:
+
+1. [Hello, World!](./hello-world/README.md) -- A simple tutorial to get your first Go program up and running.
+
+2. [Import external packages](./import-external-packages/README.md) -- A tutorial to import public shared packages to use them into your code.
+
+3. [Modules](./create-module/README.md) -- A tutorial introducing functions, error handling, arrays, maps, unit testing and compiling.
+
+
+Feel free to explore these tutorials in any order that suits your learning style.
+
+Each tutorial comes with step-by-step instructions and sample code to help you understand Go concepts better.
 
 
 ## Contributing
