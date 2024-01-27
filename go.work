@@ -1,0 +1,11 @@
+go 1.21.2
+
+use (
+	./hello-world
+
+	./create-modules/use-external-module/hello
+	./create-modules/handle-error/hello
+	./create-modules/slices/hello
+	./create-modules/loops/hello
+	./create-modules/tests/greetings
+)

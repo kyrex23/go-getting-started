@@ -19,6 +19,29 @@ programming language.
 
 Oops, I forgot it... 😅
 
+### Usage of workspaces to manage a multi-module repository
+
+This repository contains multiple Go projects, so workspaces will be used to handle them more easily.
+
+You can create a workspace by running the following command at the root of the repository:
+```bash
+go work init .
+```
+
+This will create a `go.work` file in which to include existing modules, as shown below:
+```go
+go 1.21.2
+
+use (
+	./hello-world
+)
+```
+
+You can then execute a module with the following command:
+```bash
+go run ./hello-world
+```
+
 
 ## Contributing
 
